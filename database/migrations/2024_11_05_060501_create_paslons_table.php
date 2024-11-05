@@ -6,23 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+    
     public function up(): void
     {
         Schema::create('paslon', function (Blueprint $table) {
             $table->id('id_paslon')->primary();
+            $table->unsignedBigInteger("id_kategori");
             $table->string('nama_paslon');
             $table->text('deskripsi');
             $table->text('img_paslon');
             $table->integer('count');
+
+            $table->foreign("id_kategori")->references("id_kategori")->on("kategori");
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down(): void
     {
         Schema::dropIfExists('paslons');
