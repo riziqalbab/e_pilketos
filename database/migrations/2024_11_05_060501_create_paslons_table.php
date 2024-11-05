@@ -4,9 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    
+return new class extends Migration {
+
     public function up(): void
     {
         Schema::create('paslon', function (Blueprint $table) {
@@ -16,12 +15,10 @@ return new class extends Migration
             $table->text('deskripsi');
             $table->text('img_paslon');
             $table->integer('count');
-
             $table->foreign("id_kategori")->references("id_kategori")->on("kategori");
         });
     }
 
-    
     public function down(): void
     {
         Schema::dropIfExists('paslons');
