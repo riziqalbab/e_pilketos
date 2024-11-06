@@ -10,6 +10,11 @@ declare global {
 
     /* eslint-disable no-var */
     var route: typeof ziggyRoute;
+
+    interface kategori {
+        id_kategori: number;
+        nama_kategori: string;
+    }
 }
 
 declare module '@inertiajs/core' {

@@ -14,10 +14,19 @@ import {
 // Menu items.
 const items = [
   {
-    title: "KANDIDAT",
-    url: "#",
-    icon: Home,
+    title: "ADMIN",
+    url: "/admin",
   },
+  {
+    title: "KATEGORI",
+    url: "/admin/kategori",
+  },
+  {
+    title: "TAMBAH KANDIDAT",
+    url: "/admin/tambah",
+  },
+  
+
   
 ]
 
@@ -33,7 +42,7 @@ export function AdminSidebar() {
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <a href={item.url}>
-                      <item.icon />
+                      
                       <span>{item.title}</span>
                     </a>
                   </SidebarMenuButton>

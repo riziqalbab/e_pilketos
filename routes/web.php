@@ -22,6 +22,8 @@ Route::get('/dashboard', function () {
 
 Route::get("/admin", AdminController::class);
 Route::get("/admin/tambah", [PaslonController::class, "tambah"]);
+Route::get("/admin/kategori", [PaslonController::class, "kategori"]);
+Route::post("/admin/kategori", [PaslonController::class, "storeKategori"]);
 
 
 Route::middleware('auth')->group(function () {

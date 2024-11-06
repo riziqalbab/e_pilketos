@@ -13,7 +13,7 @@ function MainLayout({ children }: { children: React.ReactNode }) {
                 <AppSidebar />
                 {/* <SidebarTrigger/> */}
                 <SidebarInset className="rounded">
-                    <SidebarTrigger className="m-5" />
+                    <SidebarTrigger className="m-5 fixed" />
                     <Navbar />
                     <main>{children}</main>
                 </SidebarInset>

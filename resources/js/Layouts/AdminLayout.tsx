@@ -14,7 +14,7 @@ function AdminLayput({ children }: { children: React.ReactNode }) {
                 <AdminSidebar />
                 {/* <SidebarTrigger/> */}
                 <SidebarInset className="rounded">
-                    <SidebarTrigger className="m-5" />
+                    <SidebarTrigger className="m-5 fixed" />
                     <Navbar />
                     <main>{children}</main>
                 </SidebarInset>
