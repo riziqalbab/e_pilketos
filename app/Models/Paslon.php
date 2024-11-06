@@ -16,10 +16,13 @@ class Paslon extends Model
         "id_paslon",
         "id_kategori",
         "nama_paslon",
+        "nomor_urut",
         "deskripsi",
         "img_paslon",
         "count"
     ];
+
+    public $timestamps = false;
 
     public function kategori(): BelongsTo
     {

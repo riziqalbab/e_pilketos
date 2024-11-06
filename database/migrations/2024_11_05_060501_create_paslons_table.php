@@ -12,6 +12,7 @@ return new class extends Migration {
             $table->id('id_paslon')->primary();
             $table->unsignedBigInteger("id_kategori");
             $table->string('nama_paslon');
+            $table->integer("nomor_urut");
             $table->text('deskripsi');
             $table->text('img_paslon');
             $table->integer('count')->default(0);

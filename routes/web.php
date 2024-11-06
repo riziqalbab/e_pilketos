@@ -7,9 +7,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render("Home");
-});
+Route::get('/', [PaslonController::class, "paslon"]);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -22,6 +20,10 @@ Route::get('/dashboard', function () {
 
 Route::get("/admin", AdminController::class);
 Route::get("/admin/tambah", [PaslonController::class, "tambah"]);
+Route::post("/admin/tambah", [PaslonController::class, "storePaslon"]);
+
+Route::get("/paslon/image/{path}", [PaslonController::class, "getPrivateFile"]);
+
 Route::get("/admin/kategori", [PaslonController::class, "kategori"]);
 Route::post("/admin/kategori", [PaslonController::class, "storeKategori"]);
 

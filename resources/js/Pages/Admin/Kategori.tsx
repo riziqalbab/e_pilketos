@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/table";
 import AdminLayput from "@/Layouts/AdminLayout";
 
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import { router, usePage } from "@inertiajs/react";
 export default function Kategori() {
     const { props } = usePage();
