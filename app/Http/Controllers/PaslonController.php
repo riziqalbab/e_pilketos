@@ -8,16 +8,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
-use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PaslonController extends Controller
 {
 
     public function paslon()
     {
-        $paslon = Paslon::all();
+
+        $url = url("");
+        $paslon_kategori = Kategori::with("paslon")->get();
         return Inertia::render("Home", [
-            "paslon"=> $paslon
+            "site_url"=> $url,
+            "paslon_kategori"=> $paslon_kategori
         ]);
 
     }

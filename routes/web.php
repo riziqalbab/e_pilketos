@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PaslonController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -27,6 +28,7 @@ Route::get("/paslon/image/{path}", [PaslonController::class, "getPrivateFile"]);
 Route::get("/admin/kategori", [PaslonController::class, "kategori"]);
 Route::post("/admin/kategori", [PaslonController::class, "storeKategori"]);
 
+Route::get("/admin/kelas", KelasController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

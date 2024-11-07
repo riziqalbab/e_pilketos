@@ -8,7 +8,6 @@ declare global {
         axios: AxiosInstance;
     }
 
-    /* eslint-disable no-var */
     var route: typeof ziggyRoute;
 
     interface kategori {
@@ -23,7 +22,18 @@ declare global {
         img_paslon: string;
         nomor_urut: number;
         nama_paslon: string;
-        count: number
+        count: number;
+    }
+
+    interface paslon_kategori {
+        id_kategori: number;
+        nama_kategori: string;
+        paslon: Array<paslon>;
+    }
+
+    interface kelas {
+        id_kelas: number;
+        nama_kelas: string;
     }
 }
 
