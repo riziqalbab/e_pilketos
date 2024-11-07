@@ -1,5 +1,3 @@
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
-
 import {
   Sidebar,
   SidebarContent,
@@ -11,7 +9,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 
-// Menu items.
 const items = [
   {
     title: "ADMIN",
@@ -25,8 +22,14 @@ const items = [
     title: "TAMBAH KANDIDAT",
     url: "/admin/tambah",
   },
-  
-
+  {
+    title: "KELAS",
+    url: "/admin/kelas",
+  },
+  {
+    title: "DPT",
+    url: "/admin/dpt",
+  },
   
 ]
 

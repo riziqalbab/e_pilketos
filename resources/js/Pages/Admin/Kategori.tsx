@@ -86,9 +86,9 @@ export default function Kategori() {
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {kategori.map((item) => (
+                                {kategori.map((item, index) => (
                                     <TableRow key={item.id_kategori}>
-                                        <TableCell>{item.id_kategori}</TableCell>
+                                        <TableCell>{index++}</TableCell>
                                         <TableCell>{item.nama_kategori}</TableCell>
                                     </TableRow>
                                 ))}

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -13,19 +12,26 @@ import {
     TableRow,
 } from "@/components/ui/table";
 import AdminLayput from "@/Layouts/AdminLayout";
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { router, usePage } from "@inertiajs/react";
 export default function Kelas() {
     const { props } = usePage();
-    const kategori: Array<kategori> = props.kategori as Array<kategori>;
+    const kelas: Array<kelas> = props.kelas as Array<kelas>;
+    
+    const [namaKelas, setNamaKelas] = useState<string>();
 
-    const [namaKategori, setNamaKategori] = useState<string>();
-
-    const handleAddCategory = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        router.post("/admin/kategori", {
-            nama_kategori: namaKategori,
+        router.post("/admin/kelas", {
+            nama_kelas: namaKelas,
         });
     };
 
@@ -39,31 +45,26 @@ export default function Kelas() {
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
-                        <form
-                            onSubmit={handleAddCategory}
-                            className="space-y-4"
-                        >
+                        <form onSubmit={handleSubmit} className="space-y-4">
                             <div className="space-y-2">
-                                <Label htmlFor="categoryName">
-                                    Nama Kategori
-                                </Label>
+                                <Label htmlFor="categoryName">Nama Kelas</Label>
                                 <Input
-                                    id="categoryName"
+                                    id="kelas"
                                     onChange={(e) => {
-                                        setNamaKategori(e.target.value);
+                                        setNamaKelas(e.target.value);
                                     }}
                                     placeholder="Masukkan nama kategori"
                                     required
                                 />
                             </div>
-                            {props.errors.nama_kategori && (
+                            {props.errors.nama_kelas && (
                                 <Alert variant="destructive">
                                     <AlertTitle>
-                                        {props.errors.nama_kategori}
+                                        {props.errors.nama_kelas}
                                     </AlertTitle>
                                 </Alert>
                             )}
-                            <Button type="submit">Tambah Kategori</Button>
+                            <Button type="submit">Tambah Kelas</Button>
                         </form>
                     </CardContent>
                 </Card>
@@ -82,23 +83,47 @@ export default function Kelas() {
                                         ID
                                     </TableHead>
                                     <TableHead>Nama Kategori</TableHead>
+                                    <TableHead>EDIT</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {kategori.map((item) => (
-                                    <TableRow key={item.id_kategori}>
-                                        <TableCell>{item.id_kategori}</TableCell>
-                                        <TableCell>{item.nama_kategori}</TableCell>
+                                {kelas.map((item, index) => (
+                                    <TableRow key={item.id_kelas}>
+                                        <TableCell>{index++}</TableCell>
+                                        <TableCell>{item.nama_kelas}</TableCell>
+                                        <TableCell>
+                                            <Dialog>
+                                                <DialogTrigger>
+                                                    EDIT
+                                                </DialogTrigger>
+                                                <DialogContent>
+                                                    <DialogHeader>
+                                                        <DialogTitle>
+                                                            Are you absolutely
+                                                            sure?
+                                                        </DialogTitle>
+                                                        <DialogDescription>
+                                                            This action cannot
+                                                            be undone. This will
+                                                            permanently delete
+                                                            your account and
+                                                            remove your data
+                                                            from our servers.
+                                                        </DialogDescription>
+                                                    </DialogHeader>
+                                                </DialogContent>
+                                            </Dialog>
+                                        </TableCell>
                                     </TableRow>
                                 ))}
-                                {kategori.length === 0 && (
+                                {kelas.length === 0 && (
                                     <TableRow>
                                         <TableCell
                                             colSpan={2}
                                             className="text-center text-muted-foreground"
                                         >
-                                            Belum ada kategori. Tambahkan
-                                            kategori baru di atas.
+                                            Belum ada kelas. Tambahkan kelas
+                                            baru di atas.
                                         </TableCell>
                                     </TableRow>
                                 )}

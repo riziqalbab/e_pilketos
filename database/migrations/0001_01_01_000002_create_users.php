@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+use function Laravel\Prompts\table;
+
 return new class extends Migration
 {
     /**
@@ -15,7 +17,10 @@ return new class extends Migration
             $table->id();
             $table->string('id_role');
             $table->unsignedBigInteger('id_kelas');
-            $table->string('name');
+            $table->string('nama_lengkap');
+            $table->string('nama_ibu');
+            $table->string('tempat_lahir');
+            $table->date('tgl_lahir');
             $table->string('password');
             $table->string('remember_token')->nullable();
             $table->timestamps();

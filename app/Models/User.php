@@ -52,4 +52,7 @@ class User extends Authenticatable
     public function kelas(): BelongsTo{
         return $this->belongsTo(Kelas::class, "id_kelas", "id_kelas");
     }
+    public function role(): BelongsTo{
+        return $this->belongsTo(Roles::class, "id_role", "id_role");
+    }
 }
