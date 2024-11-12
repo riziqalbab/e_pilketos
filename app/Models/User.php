@@ -36,6 +36,12 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'remember_token',
+        'id_kelas',
+        'nama_lengkap',
+        'nama_ibu',
+        'password',
+        'id_role',
+        'show_password',
     ];
 
     /**

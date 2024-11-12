@@ -30,6 +30,10 @@ const items = [
     title: "DPT",
     url: "/admin/dpt",
   },
+  {
+    title: "WAKTU",
+    url: "/admin/waktu",
+  },
   
 ]
 

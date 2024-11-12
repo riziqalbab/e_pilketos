@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PaslonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\WaktuController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -35,6 +36,8 @@ Route::put("/admin/kelas", [KelasController::class, "edit"]);
 Route::get("/admin/dpt", [AdminController::class, "dpt"]);
 Route::post("/admin/dpt", [AdminController::class, "storedpt"]);
 
+Route::get("/admin/waktu", WaktuController::class);
+Route::put("/admin/waktu", [WaktuController::class, "modify"]);
 
 
 

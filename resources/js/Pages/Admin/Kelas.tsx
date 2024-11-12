@@ -24,6 +24,9 @@ import { Alert, AlertTitle } from "@/components/ui/alert";
 import { router, usePage } from "@inertiajs/react";
 export default function Kelas() {
     const { props } = usePage();
+
+    console.log(props);
+    
     const kelas: Array<kelas> = props.kelas as Array<kelas>;
     const [editNamaKelas, setEditNamaKelas] = useState<string>();
     const [namaKelas, setNamaKelas] = useState<string>();

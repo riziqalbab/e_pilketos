@@ -8,6 +8,11 @@ function Home() {
     const paslon_kategori: Array<paslon_kategori> =
         props.paslon_kategori as Array<paslon_kategori>;
 
+
+        console.log(props.paslon_kategori);
+        
+
+
     return (
         <MainLayout>
             <main className="py-5">
