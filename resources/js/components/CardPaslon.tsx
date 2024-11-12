@@ -1,4 +1,3 @@
-
 import { Button } from "./ui/button";
 import {
     Dialog,
@@ -9,7 +8,6 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { Card, CardContent } from "@/components/ui/card";
-
 import {
     AlertDialog,
     AlertDialogAction,
@@ -20,6 +18,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { router } from "@inertiajs/react";
 
 export default function CardPaslon({
     paslon,
@@ -31,7 +30,9 @@ export default function CardPaslon({
     const foto = `${site_url + "/paslon/image/" + paslon.img_paslon}`;
 
     const handleVote = (id: number) => {
-        console.log(id);
+        router.put("/vote", {
+            id_paslon: id,
+        });
     };
 
     return (

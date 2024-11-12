@@ -1,17 +1,20 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Kelas;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class AdminController extends Controller
 {
     public function __invoke()
     {
+
+        Log::info(Auth::user()->id);
         return Inertia::render("Admin/Admin");
     }
     public function dpt(Request $request){

@@ -39,6 +39,7 @@ Route::post("/admin/dpt", [AdminController::class, "storedpt"]);
 Route::get("/admin/waktu", WaktuController::class);
 Route::put("/admin/waktu", [WaktuController::class, "modify"]);
 
+Route::put("/vote", [PaslonController::class, "vote"]);
 
 
 Route::middleware('auth')->group(function () {

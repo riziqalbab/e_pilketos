@@ -9,7 +9,6 @@ import { useToast } from "@/hooks/use-toast";
 
 const VotingTimeSettings = () => {
     const { toast } = useToast();
-
     const [startDate, setStartDate] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -18,19 +17,15 @@ const VotingTimeSettings = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-
-        const start = new Date(
-            `${startDate}T${startTime}`
-        ).toLocaleDateString();
-        const end = new Date(`${endDate}T${endTime}`).toString();
-
+        const start = new Date(`${startDate}T${startTime}`);
+        const end = new Date(`${endDate}T${endTime}`);
+        
         if (end <= start) {
             setError("Waktu selesai harus lebih besar dari waktu mulai");
             return;
         }
-
+        
         setError("");
-
         const values = {
             begin: `${startDate}T${startTime}`,
             end: `${endDate}T${endTime}`,
@@ -51,8 +46,6 @@ const VotingTimeSettings = () => {
                 });
             },
         });
-
-        // Kirim data ke server atau simpan ke database
     };
 
     return (

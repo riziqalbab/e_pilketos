@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Paslon;
+use App\Models\UserVote;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
@@ -16,20 +17,17 @@ class PaslonController extends Controller
         $url = url("");
         $paslon_kategori = Kategori::with("paslon")->get();
         return Inertia::render("Home", [
-            "site_url"=> $url,
-            "paslon_kategori"=> $paslon_kategori
+            "site_url" => $url,
+            "paslon_kategori" => $paslon_kategori
         ]);
     }
     public function tambah()
     {
-
         $kategori = Kategori::all();
-
         return Inertia::render("Admin/TambahPaslon", [
             "kategori" => $kategori
         ]);
     }
-
     public function getPrivateFile($filename)
     {
         $filename = basename($filename);
@@ -66,7 +64,7 @@ class PaslonController extends Controller
             "deskripsi" => "Deskripsi wajib diisi",
             "img_paslon" => "Masukan Foto dengan benar",
         ]);
-        
+
         $img_paslon = explode("/", $request->file("img_paslon")->store("images", "local"))[1];
 
         Log::info($request->nomor_urut);
@@ -108,26 +106,21 @@ class PaslonController extends Controller
             "success" => true,
         ]);
     }
+    public function vote(Request $request)
+    {
 
-
-    public function vote(Request $request){
-
+        Log::info($request->all);
         $request->validate([
             "id_paslon" => "required"
         ]);
         
-        try {
-            $paslon = Paslon::find($request->id_paslon);
-            $paslon->count += 1;
-            $paslon->save();
-            return redirect()->back()->with([
-                "success" => true,
-            ]);
-        } catch (\Throwable $th) {
-            return redirect()->back()->with([
-                "success" => false,
-            ]);
-        }
+        $is_voted = UserVote::where([
+            "id_user"=> Auth::user()->id,
+            "id_paslon"=> $request->id_paslon
+        ])->get();
 
+        if(count($is_voted) < 1){
+            Log::info("True");
+        } 
     }
 }

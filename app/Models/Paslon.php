@@ -29,5 +29,10 @@ class Paslon extends Model
         return $this->belongsTo(Kategori::class, "id_kategori", "id_kategori");
     }
 
-    
+    // many to many dengan user
+
+    public function voters()
+    {
+        return $this->belongsToMany(User::class, 'user_vote', 'id_paslon', 'id_user');
+    }
 }

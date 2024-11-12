@@ -64,4 +64,9 @@ class User extends Authenticatable
     public function role(): BelongsTo{
         return $this->belongsTo(Roles::class, "id_role", "id_role");
     }
+
+    public function votes()
+    {
+        return $this->belongsToMany(Paslon::class, 'user_vote', 'id_user', 'id_paslon');
+    }
 }
