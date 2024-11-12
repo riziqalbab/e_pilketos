@@ -22,12 +22,13 @@ class RegisteredUserController extends Controller
     {
         return Inertia::render('Auth/Register');
     }
-
     /**
      * Handle an incoming registration request.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+     
     public function store(Request $request): RedirectResponse
     {
         $request->validate([

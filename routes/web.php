@@ -30,8 +30,10 @@ Route::post("/admin/kategori", [PaslonController::class, "storeKategori"]);
 
 Route::get("/admin/kelas", KelasController::class);
 Route::post("/admin/kelas", [KelasController::class, "store"]);
+Route::put("/admin/kelas", [KelasController::class, "edit"]);
 
 Route::get("/admin/dpt", [AdminController::class, "dpt"]);
+Route::post("/admin/dpt", [AdminController::class, "storedpt"]);
 
 
 

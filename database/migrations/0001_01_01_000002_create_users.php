@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('id_role');
+            $table->string('id_role')->default('pemilih');
+            $table->string('username')->unique();
             $table->unsignedBigInteger('id_kelas');
             $table->string('nama_lengkap');
             $table->string('nama_ibu');
-            $table->string('tempat_lahir');
-            $table->date('tgl_lahir');
+            $table->string('show_password')->nullable();
             $table->string('password');
             $table->string('remember_token')->nullable();
             $table->timestamps();

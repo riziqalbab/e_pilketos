@@ -24,15 +24,33 @@ class AdminController extends Controller
     }
 
     public function storedpt(Request $request){
+
         $request->validate([
-            "dpt" => "required"
+
+            "username"=> "required|unique:users,username",
+            "nama_lengkap"=> "required",
+            "id_kelas"=> "required",
+            "nama_ibu"=> "required",
+            "password"=> "required",
+        ], [
+            "username.required"=> "Username harus diisi",
+            "username.unique"=> "Username sudah terdaftar",
+            "nama_lengkap.required"=> "Nama lengkap harus diisi",
+            "id_kelas.required"=> "Kelas harus diisi",
+            "nama_ibu.required"=> "Nama ibu harus diisi",
+            "password.required"=> "Password harus diisi",
         ]);
 
-        $user = User::create([
-            'nama_lengkap' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+        User::create([
+            "username" => $request->username,
+            "nama_lengkap" => $request->nama_lengkap,
+            "id_kelas" => $request->id_kelas,
+            "nama_ibu" => $request->nama_ibu,
+            "show_password" => $request->password,
+            "password" => Hash::make($request->password),
         ]);
-        $kelas = Kelas::all();
+
+        return redirect()->back()->with("success", "Data berhasil ditambahkan");
+
     }   
 }

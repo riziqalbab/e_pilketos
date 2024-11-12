@@ -17,30 +17,51 @@ import AdminLayput from "@/Layouts/AdminLayout";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { router, usePage } from "@inertiajs/react";
 import generateRandomString from "@/lib/generateRandomString";
+import { Toaster } from "@/components/ui/toaster";
+import { useToast } from "@/hooks/use-toast";
 export default function DPT() {
+    const { toast } = useToast();
+
     const { props } = usePage();
     const list_kelas: Array<kelas> = props.kelas as Array<kelas>;
 
     const [namaLengkap, setNamaLengkap] = useState<string>();
+    const [username, setUsername] = useState<string>();
+    const [ibu, setIbu] = useState<string>();
     const [kelas, setKelas] = useState<string>();
-    const [tempatLahir, setTempatLahir] = useState<string>();
     const [password, setPassword] = useState<string>();
-    const [tanggalLahir, setTanggalLahir] = useState<string>();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
         const values = {
+            username: username,
             nama_lengkap: namaLengkap,
             id_kelas: kelas,
-            tempat_lahir: tempatLahir,
-            tanggal_lahir: tanggalLahir,
+            nama_ibu: ibu,
+            password: password,
         };
-        // router.post("/admin/kategori", {});
+
+        router.post("/admin/dpt", values, {
+            onSuccess: () => {
+                toast({
+                    title: "Berhasil",
+                    description: "Berhasil menambahkan pemilih baru",
+                });
+            },
+            onError: (error) => {
+                toast({
+                    title: "Gagal",
+                    description: "Gagal menambahkan pemilih baru",
+                    variant: "destructive",
+                });
+            },
+        });
     };
 
     return (
         <AdminLayput>
+            <Toaster />
             <div className="container mx-auto p-5 ">
                 <Card className="mb-6">
                     <CardHeader>
@@ -50,6 +71,26 @@ export default function DPT() {
                     </CardHeader>
                     <CardContent>
                         <form className="space-y-4" onSubmit={handleSubmit}>
+                            <div className="space-y-2">
+                                <Label htmlFor="nama_lengkap">
+                                    USERNAME [NIS untuk siswa / NIP untuk guru]
+                                </Label>
+                                <Input
+                                    id="username"
+                                    onChange={(e) => {
+                                        setUsername(e.target.value);
+                                    }}
+                                    placeholder="Masukkan nama lengkap"
+                                    required
+                                />
+                            </div>
+                            {props.errors.username && (
+                                <Alert variant="destructive">
+                                    <AlertTitle>
+                                        {props.errors.username}
+                                    </AlertTitle>
+                                </Alert>
+                            )}
                             <div className="space-y-2">
                                 <Label htmlFor="nama_lengkap">
                                     NAMA LENGKAP
@@ -63,10 +104,10 @@ export default function DPT() {
                                     required
                                 />
                             </div>
-                            {props.errors.nama_kategori && (
+                            {props.errors.nama_lengkap && (
                                 <Alert variant="destructive">
                                     <AlertTitle>
-                                        {props.errors.nama_kategori}
+                                        {props.errors.nama_lengkap}
                                     </AlertTitle>
                                 </Alert>
                             )}
@@ -88,47 +129,28 @@ export default function DPT() {
                                     </SelectContent>
                                 </Select>
                             </div>
-                            {props.errors.nama_kategori && (
+                            {props.errors.id_kelas && (
                                 <Alert variant="destructive">
                                     <AlertTitle>
-                                        {props.errors.nama_kategori}
+                                        {props.errors.id_kelas}
                                     </AlertTitle>
                                 </Alert>
                             )}
                             <div className="space-y-2">
-                                <Label htmlFor="lahir">TEMPAT LAHIR</Label>
+                                <Label htmlFor="lahir">NAMA IBU KANDUNG</Label>
                                 <Input
-                                    id="lahir"
-                                    placeholder="Masukkan tempat lahir"
+                                    id="ibu"
+                                    placeholder="Masukkan nama ibu kandung"
                                     required
                                     onChange={(e) => {
-                                        setTempatLahir(e.target.value);
+                                        setIbu(e.target.value);
                                     }}
                                 />
                             </div>
-                            {props.errors.nama_kategori && (
+                            {props.errors.nama_ibu && (
                                 <Alert variant="destructive">
                                     <AlertTitle>
-                                        {props.errors.nama_kategori}
-                                    </AlertTitle>
-                                </Alert>
-                            )}
-                            <div className="space-y-2">
-                                <Label htmlFor="lahir">TANGGAL LAHIR</Label>
-                                <Input
-                                    type="date"
-                                    id="tanggal_lahir"
-                                    placeholder="Masukkan tanggal lahir"
-                                    required
-                                    onChange={(e) => {
-                                        setTanggalLahir(e.target.value);
-                                    }}
-                                />
-                            </div>
-                            {props.errors.nama_kategori && (
-                                <Alert variant="destructive">
-                                    <AlertTitle>
-                                        {props.errors.nama_kategori}
+                                        {props.errors.nama_ibu}
                                     </AlertTitle>
                                 </Alert>
                             )}
@@ -157,10 +179,10 @@ export default function DPT() {
                                     </Button>
                                 </div>
                             </div>
-                            {props.errors.nama_kategori && (
+                            {props.errors.password && (
                                 <Alert variant="destructive">
                                     <AlertTitle>
-                                        {props.errors.nama_kategori}
+                                        {props.errors.password}
                                     </AlertTitle>
                                 </Alert>
                             )}

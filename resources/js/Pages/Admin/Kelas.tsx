@@ -25,7 +25,7 @@ import { router, usePage } from "@inertiajs/react";
 export default function Kelas() {
     const { props } = usePage();
     const kelas: Array<kelas> = props.kelas as Array<kelas>;
-    
+    const [editNamaKelas, setEditNamaKelas] = useState<string>();
     const [namaKelas, setNamaKelas] = useState<string>();
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -35,13 +35,20 @@ export default function Kelas() {
         });
     };
 
+    const handleEdit = (id_kelas: number) => {
+        router.put("/admin/kelas", {
+            id_kelas: id_kelas,
+            nama_kelas: editNamaKelas,
+        });
+    };
+
     return (
         <AdminLayput>
             <div className="container mx-auto p-5 ">
                 <Card className="mb-6">
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold">
-                            Tambah Kategori Baru
+                            Tambah Kelas Baru
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -72,7 +79,7 @@ export default function Kelas() {
                 <Card>
                     <CardHeader>
                         <CardTitle className="text-2xl font-bold">
-                            Daftar Kategori
+                            Daftar Kelas
                         </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -80,35 +87,63 @@ export default function Kelas() {
                             <TableHeader>
                                 <TableRow>
                                     <TableHead className="w-[100px]">
-                                        ID
+                                        Nomor
                                     </TableHead>
-                                    <TableHead>Nama Kategori</TableHead>
+                                    <TableHead>Nama Kelas</TableHead>
                                     <TableHead>EDIT</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {kelas.map((item, index) => (
                                     <TableRow key={item.id_kelas}>
-                                        <TableCell>{index++}</TableCell>
+                                        <TableCell>{index + 1}</TableCell>
                                         <TableCell>{item.nama_kelas}</TableCell>
                                         <TableCell>
                                             <Dialog>
-                                                <DialogTrigger>
+                                                <DialogTrigger
+                                                    onClick={() =>
+                                                        setEditNamaKelas(
+                                                            item.nama_kelas
+                                                        )
+                                                    }
+                                                >
                                                     EDIT
                                                 </DialogTrigger>
                                                 <DialogContent>
                                                     <DialogHeader>
                                                         <DialogTitle>
-                                                            Are you absolutely
-                                                            sure?
+                                                            Edit Nama Kelas{" "}
+                                                            {item.nama_kelas}
                                                         </DialogTitle>
                                                         <DialogDescription>
-                                                            This action cannot
-                                                            be undone. This will
-                                                            permanently delete
-                                                            your account and
-                                                            remove your data
-                                                            from our servers.
+                                                            <form className="mt-4">
+                                                                <Input
+                                                                    type="text"
+                                                                    value={
+                                                                        editNamaKelas
+                                                                    }
+                                                                    onChange={(
+                                                                        e
+                                                                    ) =>
+                                                                        setEditNamaKelas(
+                                                                            e
+                                                                                .target
+                                                                                .value
+                                                                        )
+                                                                    }
+                                                                />
+
+                                                                <Button
+                                                                    onClick={() =>
+                                                                        handleEdit(
+                                                                            item.id_kelas
+                                                                        )
+                                                                    }
+                                                                    className="my-4 float-right"
+                                                                >
+                                                                    KIRIM
+                                                                </Button>
+                                                            </form>
                                                         </DialogDescription>
                                                     </DialogHeader>
                                                 </DialogContent>
