@@ -24,6 +24,10 @@ const items = [
     url: "/admin/tambah",
   },
   {
+    title: "KANDIDAT",
+    url: "/admin/paslon",
+  },
+  {
     title: "KELAS",
     url: "/admin/kelas",
   },

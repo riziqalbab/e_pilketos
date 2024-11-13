@@ -41,7 +41,6 @@ export default function AddCandidateForm() {
             onSuccess: () => {
                 toast({
                     title: "DATA KANDIDAT SUKSES DIBUAT",
-                    description: "Friday, February 10, 2023 at 5:57 PM",
                 });
             },
         });
@@ -144,14 +143,14 @@ export default function AddCandidateForm() {
                                     type="file"
                                     accept="image/*"
                                     onChange={(e) => {
-                                        // @ts-ignore
                                         setData(
                                             "img_paslon",
+                                            // @ts-ignore
                                             e.target.files[0]
                                         );
-                                        // @ts-ignore
                                         setPreviewUrl(
                                             URL.createObjectURL(
+                                                // @ts-ignore
                                                 e.target.files[0]
                                             )
                                         );
@@ -166,7 +165,7 @@ export default function AddCandidateForm() {
                                         </AlertTitle>
                                         <AlertDescription>
                                             File bertipe gambar dengan format
-                                            jpg/png dan maksimal ukuran 2 Mb
+                                            jpg/png dan maksimal ukuran 5 Mb
                                         </AlertDescription>
                                     </Alert>
                                 )}

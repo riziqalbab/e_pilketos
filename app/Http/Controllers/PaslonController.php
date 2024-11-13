@@ -80,6 +80,56 @@ class PaslonController extends Controller
 
 
     }
+    public function editPaslon()
+    {
+        $url = url("");
+        $kategori = Kategori::all();
+
+        $paslon_kategori = Kategori::with("paslon")->get();
+        return Inertia::render("Admin/EditPaslon", [
+            "site_url" => $url,
+            "paslon_kategori" => $paslon_kategori,
+            "kategori" => $kategori
+        ]);
+    }
+
+    public function storeEdit(Request $request)
+    {
+        $request->validate([
+            "nama_paslon" => "required",
+            "id_kategori" => "required",
+            "nomor_urut" => "required",
+            "deskripsi" => "required",
+            "img_paslon" => "nullable|file|mimes:jpg,png,pdf|max:5240"
+        ], [
+            "nama_paslon" => "Nama wajib diisi",
+            "id_kategori" => "Kategori wajib diisi",
+            "nomor_urut" => "Nomor urut wajib diisi",
+            "deskripsi" => "Deskripsi wajib diisi",
+            "img_paslon" => "Masukan Foto dengan benar",
+        ]);
+
+        $paslon = Paslon::find($request->id_paslon);
+        $img_paslon = $paslon->img_paslon;
+        if ($request->hasFile("img_paslon")) {
+            $img_paslon = explode("/", $request->file("img_paslon")->store("images", "local"))[1];
+        }
+
+        $paslon->update([
+            "nama_paslon" => $request->nama_paslon,
+            "id_kategori" => $request->id_kategori,
+            "nomor_urut" => $request->nomor_urut,
+            "deskripsi" => $request->deskripsi,
+            "img_paslon" => $img_paslon,
+        ]);
+
+        return redirect()->back()->with([
+            "success" => true
+        ]);
+
+
+
+    }
     public function kategori()
     {
         $kategori = Kategori::all();
@@ -106,6 +156,7 @@ class PaslonController extends Controller
             "success" => true,
         ]);
     }
+
     public function vote(Request $request)
     {
 
@@ -113,14 +164,16 @@ class PaslonController extends Controller
         $request->validate([
             "id_paslon" => "required"
         ]);
-        
+
+
+
         $is_voted = UserVote::where([
-            "id_user"=> Auth::user()->id,
-            "id_paslon"=> $request->id_paslon
+            "id_user" => Auth::user()->id,
+            "id_paslon" => $request->id_paslon
         ])->get();
 
-        if(count($is_voted) < 1){
+        if (count($is_voted) < 1) {
             Log::info("True");
-        } 
+        }
     }
 }

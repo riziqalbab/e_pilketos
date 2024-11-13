@@ -14,7 +14,7 @@ class AdminController extends Controller
     public function __invoke()
     {
 
-        Log::info(Auth::user()->id);
+        // Log::info(Auth::user()->id);
         return Inertia::render("Admin/Admin");
     }
     public function dpt(Request $request){

@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->text('deskripsi');
             $table->text('img_paslon');
             $table->integer('count')->default(0);
-            $table->foreign("id_kategori")->references("id_kategori")->on("kategori");
+            $table->foreign("id_kategori")->references("id_kategori")->on("kategori")->onDelete("cascade");
         });
     }
 

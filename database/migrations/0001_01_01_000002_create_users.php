@@ -17,9 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('id_role')->default('pemilih');
             $table->string('username')->unique();
-            $table->unsignedBigInteger('id_kelas');
+            $table->unsignedBigInteger('id_kelas')->nullable();
             $table->string('nama_lengkap');
-            $table->string('nama_ibu');
+            $table->string('nama_ibu')->nullable();
             $table->string('show_password')->nullable();
             $table->string('password');
             $table->string('remember_token')->nullable();
