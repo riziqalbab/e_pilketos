@@ -16,7 +16,6 @@ class RoleMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if ($request->user()->id_role !== 'admin') {
-            // abort(403, 'Unauthorized');
             return redirect()->route('home');
         }
 

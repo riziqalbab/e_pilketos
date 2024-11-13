@@ -11,13 +11,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', [PaslonController::class, "paslon"])->name("home");
-
-    Route::get("/paslon/image/{path}", [PaslonController::class, "getPrivateFile"]);
-
+    
     // ==============================> ADMIN <==============================
-
-
+    
+    
+    
+    Route::get('/', [PaslonController::class, "paslon"])->name("home");
+    Route::get("/paslon/image/{path}", [PaslonController::class, "getPrivateFile"]);
 
     Route::middleware([RoleMiddleware::class])->group(function () {
 

@@ -6,6 +6,16 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import {
     Table,
     TableBody,
     TableCell,
@@ -22,6 +32,7 @@ export default function Kategori() {
     const kategori: Array<kategori> = props.kategori as Array<kategori>;
 
     const [namaKategori, setNamaKategori] = useState<string>();
+    const [editKategori, setEditKategori] = useState<string>();
 
     const handleAddCategory = (e: React.FormEvent) => {
         e.preventDefault();
@@ -83,13 +94,46 @@ export default function Kategori() {
                                         ID
                                     </TableHead>
                                     <TableHead>Nama Kategori</TableHead>
+                                    <TableHead className="text-right">
+                                        Aksi
+                                    </TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
                                 {kategori.map((item, index) => (
                                     <TableRow key={item.id_kategori}>
                                         <TableCell>{index++}</TableCell>
-                                        <TableCell>{item.nama_kategori}</TableCell>
+                                        <TableCell>
+                                            {item.nama_kategori}
+                                        </TableCell>
+                                        <AlertDialog>
+                                            <AlertDialogTrigger>
+                                                EDIT
+                                            </AlertDialogTrigger>
+                                            <AlertDialogContent>
+                                                <AlertDialogHeader>
+                                                    <Input
+                                                        type="text"
+                                                        value={
+                                                            item.nama_kategori
+                                                        }
+                                                        onChange={(e) => {
+                                                            setEditKategori(
+                                                                e.target.value
+                                                            );
+                                                        }}
+                                                    />
+                                                </AlertDialogHeader>
+                                                <AlertDialogFooter>
+                                                    <AlertDialogCancel>
+                                                        BATAL
+                                                    </AlertDialogCancel>
+                                                    <AlertDialogAction>
+                                                        IYA
+                                                    </AlertDialogAction>
+                                                </AlertDialogFooter>
+                                            </AlertDialogContent>
+                                        </AlertDialog>
                                     </TableRow>
                                 ))}
                                 {kategori.length === 0 && (

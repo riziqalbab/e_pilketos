@@ -137,7 +137,6 @@ class PaslonController extends Controller
             "kategori" => $kategori
         ]);
     }
-
     public function storeKategori(Request $request)
     {
 
@@ -157,6 +156,24 @@ class PaslonController extends Controller
         ]);
     }
 
+    public function storeEditKategori(Request $request){
+
+        $request->validate([
+            "nama_kategori" => "required|unique:kategori,nama_kategori"
+        ], [
+            "nama_kategori" => "Wajib Diisi",
+            "nama_kategori.unique" => "Kategori Sudah Ada"
+        ]);
+
+        $kategori = Kategori::find($request->id_kategori);
+        $kategori->update([
+            "nama_kategori" => $request->nama_kategori
+        ]);
+
+        return redirect()->back()->with([
+            "success" => true,
+        ]);
+    }
     public function vote(Request $request)
     {
 
