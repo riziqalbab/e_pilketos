@@ -14,6 +14,9 @@ class Roles extends Model
         "nama_role"
     ];
 
+    protected $keyType = 'string';
+    public $incrementing = false;
+
     
     public $timestamps = false;
 

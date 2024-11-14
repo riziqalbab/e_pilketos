@@ -4,20 +4,24 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
+    
+    public function handle(Request $request, Closure $next, $role): Response
     {
-        if ($request->user()->id_role !== 'admin') {
-            return redirect()->route('home');
+
+
+
+        if($request->path() == "/" && $request->user()->role->id_role == "admin") {
+            return redirect()->route("admin");
         }
+
+        // if ($request->user()->role->nama_role != $role) {
+        //     return redirect()->route("home");
+        // }
 
         return $next($request);
     }

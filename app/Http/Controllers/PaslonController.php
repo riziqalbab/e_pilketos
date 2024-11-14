@@ -176,21 +176,45 @@ class PaslonController extends Controller
     }
     public function vote(Request $request)
     {
-
-        Log::info($request->all);
         $request->validate([
             "id_paslon" => "required"
         ]);
 
 
+        $kategori_paslon_voted = Paslon::find($request->id_paslon)->kategori->id_kategori;
 
         $is_voted = UserVote::where([
             "id_user" => Auth::user()->id,
-            "id_paslon" => $request->id_paslon
+            "id_kategori"=> $kategori_paslon_voted
         ])->get();
 
         if (count($is_voted) < 1) {
-            Log::info("True");
+            UserVote::create([
+                "id_user" => Auth::user()->id,
+                "id_paslon" => $request->id_paslon,
+                "id_kategori" => $kategori_paslon_voted
+            ]);
+            Paslon::find($request->id_paslon)->increment("count");
+            return redirect()->back()->with([
+                "success" => true
+            ]);
         }
+        return redirect()->back()->with([
+            "success" => false
+        ])->withErrors([
+            "error" => "Kamu sudah memilih"
+        ]);
+        
+
+
+
+        // $is_voted = UserVote::where([
+        //     "id_user" => Auth::user()->id,
+        //     "id_paslon" => $request->id_paslon
+        // ])->get();
+
+        // if (count($is_voted) < 1) {
+        //     Log::info("True");
+        // }
     }
 }

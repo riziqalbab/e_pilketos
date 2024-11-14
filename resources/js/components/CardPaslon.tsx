@@ -37,6 +37,7 @@ export default function CardPaslon({
 
     return (
         <Card className="group relative overflow-hidden rounded-lg h-96 w-96">
+
             {/* Background Image */}
             <div className="absolute inset-0">
                 <img
@@ -46,6 +47,7 @@ export default function CardPaslon({
                     height={400}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
+
                 <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/80" />
             </div>
 
@@ -53,7 +55,7 @@ export default function CardPaslon({
             <CardContent className="relative p-6  h-full">
                 <div className="space-y-4 flex  h-full justify-between flex-col">
                     {/* Author Info */}
-                    <div className="flex items-center gap-3"></div>
+                    <div className="flex items-center gap-3 bg-white rounded-full w-8 h-8 justify-center  ">{paslon.nomor_urut}</div>
 
                     {/* Card Title and Description */}
                     <div className="space-y-2">

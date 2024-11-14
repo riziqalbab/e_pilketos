@@ -8,7 +8,7 @@ class UserVote extends Pivot
 {
     protected $table = 'user_vote';
 
-    protected $fillable = ['id_user', 'id_paslon'];
+    protected $fillable = ['id_user', 'id_paslon', 'id_kategori'];
     public $timestamps = false;
 
 }
