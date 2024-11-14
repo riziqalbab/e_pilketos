@@ -35,6 +35,10 @@ declare global {
         id_kelas: number;
         nama_kelas: string;
     }
+    interface time_vote {
+        begin: string;
+        end: string;
+    }
 }
 
 declare module "@inertiajs/core" {

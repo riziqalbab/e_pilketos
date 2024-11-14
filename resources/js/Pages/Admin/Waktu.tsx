@@ -3,17 +3,20 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import AdminLayput from "@/Layouts/AdminLayout";
 import { Input } from "@/components/ui/input";
-import { router } from "@inertiajs/react";
+import { router, usePage } from "@inertiajs/react";
 import { Toaster } from "@/components/ui/toaster";
 import { useToast } from "@/hooks/use-toast";
 
 const VotingTimeSettings = () => {
+
     const { toast } = useToast();
     const [startDate, setStartDate] = useState("");
     const [startTime, setStartTime] = useState("");
     const [endDate, setEndDate] = useState("");
     const [endTime, setEndTime] = useState("");
     const [error, setError] = useState("");
+
+
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

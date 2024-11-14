@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\Kategori;
 use App\Models\Paslon;
 use App\Models\UserVote;
+use App\Models\Waktu;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -14,11 +16,24 @@ class PaslonController extends Controller
 {
     public function paslon()
     {
+
+
+        $is_user_voted = UserVote::where([
+            "id_user" => Auth::user()->id,
+        ])->get();
+
         $url = url("");
-        $paslon_kategori = Kategori::with("paslon")->get();
+        $paslon_kategori = Kategori::with(['paslon' => function ($query) {
+            $query->select('id_kategori', 'nama_paslon', 'img_paslon', 'id_paslon', 'nomor_urut', 'deskripsi');
+        }])->get();
+
+        $time_vote = Waktu::find(1);
+
         return Inertia::render("Home", [
             "site_url" => $url,
-            "paslon_kategori" => $paslon_kategori
+            "paslon_kategori" => $paslon_kategori,
+            "is_user_voted" => $is_user_voted,
+            "time_vote" => $time_vote
         ]);
     }
     public function tambah()
@@ -156,7 +171,8 @@ class PaslonController extends Controller
         ]);
     }
 
-    public function storeEditKategori(Request $request){
+    public function storeEditKategori(Request $request)
+    {
 
         $request->validate([
             "nama_kategori" => "required|unique:kategori,nama_kategori"
@@ -174,18 +190,38 @@ class PaslonController extends Controller
             "success" => true,
         ]);
     }
+
+
+
+
     public function vote(Request $request)
     {
+
+
         $request->validate([
             "id_paslon" => "required"
         ]);
+        $time_vote = Waktu::find(1);
+        $time_now = Carbon::now();
 
+        $time_now = $time_now->format("Y-m-d H:i:s");
+        if ($time_now < $time_vote->begin) {
+            return redirect()->back()->withErrors([
+                "success" => false,
+                "error" => "Pelaksanaan voting belum dimulai"
+            ]);
+        } else if ($time_now > $time_vote->end) {
+            return redirect()->back()->withErrors([
+                "success" => false,
+                "error" => "Pelaksanaan voting telah berakhir"
+            ]);
+        }
 
         $kategori_paslon_voted = Paslon::find($request->id_paslon)->kategori->id_kategori;
 
         $is_voted = UserVote::where([
             "id_user" => Auth::user()->id,
-            "id_kategori"=> $kategori_paslon_voted
+            "id_kategori" => $kategori_paslon_voted
         ])->get();
 
         if (count($is_voted) < 1) {
@@ -202,9 +238,9 @@ class PaslonController extends Controller
         return redirect()->back()->with([
             "success" => false
         ])->withErrors([
-            "error" => "Kamu sudah memilih"
-        ]);
-        
+                    "error" => "Kamu sudah memilih"
+                ]);
+
 
 
 

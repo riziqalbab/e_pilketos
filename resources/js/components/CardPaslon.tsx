@@ -23,9 +23,11 @@ import { router } from "@inertiajs/react";
 export default function CardPaslon({
     paslon,
     site_url,
+    can_vote,
 }: {
     paslon: paslon;
     site_url: string;
+    can_vote?: boolean;
 }) {
     const foto = `${site_url + "/paslon/image/" + paslon.img_paslon}`;
 
@@ -37,7 +39,6 @@ export default function CardPaslon({
 
     return (
         <Card className="group relative overflow-hidden rounded-lg h-96 w-96">
-
             {/* Background Image */}
             <div className="absolute inset-0">
                 <img
@@ -47,7 +48,6 @@ export default function CardPaslon({
                     height={400}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                 />
-
                 <div className="absolute inset-0 bg-gradient-to-b from-black/0 to-black/80" />
             </div>
 
@@ -55,7 +55,9 @@ export default function CardPaslon({
             <CardContent className="relative p-6  h-full">
                 <div className="space-y-4 flex  h-full justify-between flex-col">
                     {/* Author Info */}
-                    <div className="flex items-center gap-3 bg-white rounded-full w-8 h-8 justify-center  ">{paslon.nomor_urut}</div>
+                    <div className="flex items-center gap-3 bg-white rounded-full w-8 h-8 justify-center  ">
+                        {paslon.nomor_urut}
+                    </div>
 
                     {/* Card Title and Description */}
                     <div className="space-y-2">
@@ -63,37 +65,41 @@ export default function CardPaslon({
                             {paslon.nama_paslon}
                         </h2>
                         <div className="text-slate-200 flex gap-2">
-                            <Button
-                                variant="default"
-                                className="bg-white text-blue-950"
-                            >
-                                <AlertDialog>
-                                    <AlertDialogTrigger>
-                                        VOTE
-                                    </AlertDialogTrigger>
-                                    <AlertDialogContent>
-                                        <AlertDialogHeader>
-                                            <AlertDialogTitle>
-                                                APAKAH ANDA YAKIN PILIHAN ANDA?
-                                            </AlertDialogTitle>
-                                        </AlertDialogHeader>
-                                        <AlertDialogFooter>
-                                            <AlertDialogCancel>
-                                                BATAL
-                                            </AlertDialogCancel>
-                                            <AlertDialogAction
-                                                onClick={() => {
-                                                    handleVote(
-                                                        paslon.id_paslon
-                                                    );
-                                                }}
-                                            >
-                                                IYA
-                                            </AlertDialogAction>
-                                        </AlertDialogFooter>
-                                    </AlertDialogContent>
-                                </AlertDialog>
-                            </Button>
+                            {can_vote
+                             && (
+                                <Button
+                                    variant="default"
+                                    className="bg-white text-blue-950"
+                                >
+                                    <AlertDialog>
+                                        <AlertDialogTrigger>
+                                            VOTE
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>
+                                                    APAKAH ANDA YAKIN PILIHAN
+                                                    ANDA?
+                                                </AlertDialogTitle>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>
+                                                    BATAL
+                                                </AlertDialogCancel>
+                                                <AlertDialogAction
+                                                    onClick={() => {
+                                                        handleVote(
+                                                            paslon.id_paslon
+                                                        );
+                                                    }}
+                                                >
+                                                    IYA
+                                                </AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
+                                </Button>
+                            )}
                             <Dialog>
                                 <DialogTrigger>
                                     <Button>DETAIL</Button>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Kategori;
 use App\Models\Kelas;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,8 +15,13 @@ class AdminController extends Controller
     public function __invoke()
     {
 
-        // Log::info(Auth::user()->id);
-        return Inertia::render("Admin/Admin");
+        $paslon_kategori = Kategori::with(['paslon' => function ($query) {
+            $query->select('id_kategori', 'nama_paslon', 'nomor_urut', 'count');
+        }])->get();
+
+        return Inertia::render("Admin/Admin", [
+            "paslon_kategori" => $paslon_kategori
+        ]);
     }
     public function dpt(Request $request){
 

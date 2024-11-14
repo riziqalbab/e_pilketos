@@ -10,7 +10,10 @@ class WaktuController extends Controller
 {
     public function __invoke()
     {
-        return Inertia::render("Admin/Waktu");
+        $time_vote = Waktu::find(1);
+        return Inertia::render("Admin/Waktu", [
+            "time_vote"=> $time_vote
+        ]);
     }
 
     public function modify(Request $request)
