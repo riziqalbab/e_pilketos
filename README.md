@@ -2,6 +2,8 @@
 
 # MANAJEMEN PEMILIHAN KETUA OSIS ONLINE
 
+E-Pilketos merupakan aplikasi E-Voting yang dibuat khusus untuk memfasilitasi sekolah-sekolah dalam melaksanakan pemilihan ketua OSIS. Dengan aplikasi ini, proses pemilihan dapat dilakukan dengan lebih mudah, cepat, dan efisien, mendukung transparansi serta partisipasi siswa dalam memilih leader OSIS.
+
 ## FITUR
 - Custom Daftar Pemilih
 - Custom Kandidat
