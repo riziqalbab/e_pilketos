@@ -31,6 +31,8 @@ declare global {
         paslon: Array<paslon>;
     }
 
+    
+
     interface kelas {
         id_kelas: number;
         nama_kelas: string;
